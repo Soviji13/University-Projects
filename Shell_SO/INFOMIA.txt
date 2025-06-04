@@ -1,0 +1,135 @@
+************************************************************************************************
+Información sobre funciones:
+************************************************************************************************
+
+	/*	SETPGID ---------------------------------
+
+		Qué hace: Asignar un proceso a un grupo de procesos
+
+		primer parámetro: 	pid del proceso a mover, si = 0, usamos el pid del proceso actual
+
+		segundo parámetro: 	id del grupo de procesos destino, si = 0, usa el pid del primer 
+							parámetro como nuevo pgid. Este es el líder del grupo
+    */
+
+    /* TCSETGRP ----------------------------------
+
+		Qué hace: asignar control de la terminal a un grupo
+
+		primer parámetro:	descriptor de archivo de la terminal
+							usar STDIN_FILENO o 0
+
+		segundo parámetro:	id del grupo de procesos que recibirá el control de la terminal
+	*/
+
+    /* CHDIR ---------------------------------------------
+
+        Es una syscall que modifica el directorio de trabajo del proceso que la llama
+
+**************************************************************************************************
+Información sobre comprensión
+**************************************************************************************************
+
+    /* POR QUÉ HAY QUE CREAR COMANDOS INTERNOS ------------------------------------
+
+       Comandos como ls, grep, cat, son EJECUTABLES binarios
+            Se pueden ejecutar, ya que se encuentran en el PATH
+
+       Comandos como cd, exit, export, son COMANDOS internos (builts-ins)
+            No son programas independientes, cambian el estado interno del shell
+
+    /* CUÁNDO RESERVAR MEMORIA (NEW_JOB) O CUÁNDO NO ------------------------------
+
+        Reservamos memoria sólo cuando creamos un nuevo trabajo 
+
+        Cuando queremos acceder a uno existente no es necesario
+    
+    /* CÓMO COGER INFO DE CUANDO SALEN LOS PROCESOS -------------------------------
+
+        WIFEXITED(status) ➤ ¿salió normalmente con exit()?
+        WEXITSTATUS(status) ➤ ¿qué código devolvió?
+        WIFSIGNALED(status) ➤ ¿lo mató una señal?
+        WTERMSIG(status) ➤ ¿qué señal lo mató?
+        WIFSTOPPED(status) ➤ ¿lo suspendieron (ej. Ctrl+Z)?
+        WSTOPSIG(status) ➤ ¿qué señal lo suspendió?
+
+    
+    /* SEÑALES --------------------------------------------------------------------
+
+        SIGCHLD ➤ Cuando un proceso termina o para
+        block_SIGCHLD ➤ Bloquea temporalmente la señal SIGCHLD, señal que 
+                        se le envía
+
+        SIGHUP ➤ Termina el proceso, su valor es 1. Cuando la terminal controladora
+                 de un proceso se cierra, se envía.
+
+    /* KILL ------------------------------------------------------------------------
+
+        kill -SIGCONT <pid>  ➤ Ponemos el proceso con pid detenido (stopped), a bg
+
+
+    /* SI ME PIDEN QUE EL MANEJADOR NO ENMASCARE LA SEÑAL NI LA BLOQUEE -----------
+
+        El shell debe ser capaz de recibir la señal y reaccionar a ella en cualquier
+        momento
+
+**************************************************************************************************
+Por qué en fg no hace falta hacer fork y sí en el main
+**************************************************************************************************
+
+    /* EN EL MAIN -----------------------------------------------------------------
+
+        Hacemos un fork() porque el usuario ha pedido ejecutar un nuevo
+        comando externo. El hijo ejecuta el comando con execvp
+
+        El padre decide si esperarlo (waitpid) o si seguir con su ejecución
+        (si es bg)
+
+    
+    /* FG_INTERNO / BG_INTERNO -----------------------------------------------------
+
+        No hacemos fork porque no vamos a crear un nuevo proceso. Gestionamos
+        un proceso que ya existe, uno que está en la lista de trabajos bg 
+        o suspendidos.
+
+        Le mandamos la señal de SIGCONT para reanudarlo si estaba parado.
+
+**************************************************************************************************
+parse_redirections()
+**************************************************************************************************
+
+    /* O_RDONLY (file_in) ---------------------------------------------------------------------
+
+        Abre el archivo en modo lectura y redirige STDIN_FILENO con dup2
+
+    /* O_WRONLY | O_CREAT | O_TRUNC (file_out) ------------------------------------------------
+
+        Redirige STDOUT_FILENO con dup2 si no da fallo
+
+    /* REDIRECCIÓN CON ANEXADO >> -------------------------------------------------------------
+
+        Se anexa lo que se escribe al final, no sobreescribe como >
+
+**************************************************************************************************
+Modo append
+************************************************************************************************** 
+
+    Abrir el archivo para añadir contenido al final, sin sobreescribir lo 
+    que ya existe.
+
+    Si el archivo no existe se crea automáticamente
+
+**************************************************************************************************
+Añadir esquemita visual de cómo funciona la shell
+**************************************************************************************************
+
+
+**************************************************************************************************
+Modificación de zjobs
+**************************************************************************************************
+
+    He tenido que modificar el manejador SIGCHLD para que solo maneje los procesos
+    que se encuentren en la listaBg
+
+        
+
