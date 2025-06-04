@@ -1,0 +1,17 @@
+# Ignoramos archivos innecesarios y carperas del sistema/editor
+
+# macOs
+.DS_Store
+
+# Archivos de compilación
+*.exe
+*.o 
+*.out 
+
+# VSCode y configuración de contenedores
+.vscode/
+.devcontainer/
+
+# Archivos innecesarios
+Shell_SO/hup.txt
+Shell_SO/Redirecciones/
