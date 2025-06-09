@@ -44,6 +44,10 @@ public class SWClient
 
 		return Integer.parseInt(parts[parts.length-1]);
 	}
+
+    /************************************************************************************
+     * Métodos de consulta a la API de Star Wars
+     ************************************************************************************/
 	
 	// Consulta un recurso y devuelve cuántos elementos tiene
     public int getNumberOfResources (String resource)
@@ -287,6 +291,57 @@ public class SWClient
             {
                 p.homeplanet = null; // Si no tiene homeworld, asignamos null
             }
+        }
+        catch (Exception e)
+        {
+            System.err.println(e);
+            return null;
+        }
+        return p;
+    }
+
+    // Obtenemos los datos básicos de la nave espacial
+    public SpaceShip getStarShip (String urlname)
+    {
+        SpaceShip p = null;
+        // TODO: Maneja de forma apropiada las posibles excepciones
+        try
+        {
+            urlname = urlname.replaceAll("http:", "https:");
+
+            // TODO: Crea un objeto para manejar una conexión (HttpClient) de HTTP/1.1
+            URI servicio = new URI(urlname);
+
+            // TODO: Crea una petición HTTP (HttpRequest) con las siguientes características
+            // - la URL está en urlname
+            // - Añada las cabeceras indicadas en el enunciado
+            // - Use el método GET
+
+            /* Primero abrimos una conexión HTTP asociada a la URL */
+            HttpClient cliente = HttpClient.newBuilder()
+                    .version(HttpClient.Version.HTTP_1_1)
+                    .build();
+
+            /* Creamos la petición HTTP */
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(servicio)
+                    .header("User-Agent", app_name + "-" + year)    // Cabecera User-Agent
+                    .header("Accept", "application/json")           // Cabecera Accept
+                    .GET()                                                       // Tipo de petición
+                    .build();
+
+            // TODO: envíe la petición para obtener una respuesta (HttpResponse)
+            HttpResponse<String> response = cliente.send(request, BodyHandlers.ofString());
+
+            // TODO Comprueba que el código de la respuesta es correcto (2xx)
+            if(response.statusCode() < 200 || response.statusCode() >= 300)
+            {
+                return null;       // Si no es correcto, devolvemos null
+            }
+
+            // TODO: Deserialice la respuesta usando la clase SpaceShip
+            Gson parser = new Gson();
+            p = parser.fromJson(response.body(), SpaceShip.class);
         }
         catch (Exception e)
         {

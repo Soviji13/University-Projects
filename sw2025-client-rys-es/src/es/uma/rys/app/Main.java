@@ -6,9 +6,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 import es.uma.rys.entities.Person;
+import es.uma.rys.entities.SpaceShip;
 import es.uma.rys.entities.World;
 
-public class Main {	
+public class Main
+{
+	/*************************************************************************************************
+			ATRIBUTOS / VARIABLES
+	 *************************************************************************************************/
+
 	private static Random rand; // para números aleatorios
 	private static Scanner sc; // para leer de teclado
 	private final static String proxy = "proxy.lcc.uma.es";
@@ -38,6 +44,9 @@ public class Main {
 										"El exceso de confianza es el mas peligroso de los descuidos",
 										"El camino de la ignorancia es guiado por el miedo" };
 
+	/*************************************************************************************************
+	 * MAIN
+	 *************************************************************************************************/
     public static void main(String[] args) {
     	
     	// Descomente las siguiente líneas si lo está probando en el laboratorio y accede a Internet usando el proxy
@@ -49,16 +58,22 @@ public class Main {
     	rand = new Random();
         sc = new Scanner(System.in);
 
+		// Preguntas que se pueden hacer (comentamos las que no se quieren probar)
         do{
-        	tallest(sw);
-        	whoBornIn1(sw);
-        	whoBornIn2(sw);
+        	//tallest(sw);
+        	//whoBornIn1(sw);
+        	//whoBornIn2(sw);
+			mostExpensive(sw);
 	       	System.out.println("Desea otra ronda (s/n)?");
 	       	respuesta = sc.nextLine();
 	    }while(respuesta.equals("s"));
         sc.close();
         
     }
+
+	/*************************************************************************************************
+	 * MÉTODOS AUXILIARES
+	 *************************************************************************************************/
 
 	// Sirve para obtener recursos aleatorios sin repetir de algo en específico (personajes, planetas, etc.)
     public static Integer getRandomResource(int max, List<Integer> l)
@@ -76,8 +91,14 @@ public class Main {
     	}
     	return p;
     }
-    
+
+	/*************************************************************************************************
+	 * PREGUNTAS
+	 * ***********************************************************************************************/
+
+	/*-------- TALLEST -------------------------------------------------------------------------------*/
     // Pregunta que obtiene dos recursos iguales (personajes en este caso) y los compara
+
     public static void tallest(SWClient sw){
 
 		// Obtenemos la cantidad de personas que podemos usar como máximo
@@ -158,11 +179,13 @@ public class Main {
     		System.out.println("Fallaste :( " + fracaso[rand.nextInt(fracaso.length)]);
     	}
     }
-    
+
+	/*-------- WHO BORN IN 1 --------------------------------------------------------------------------*/
     // Pregunta que relaciona varios recursos:
     // - Elige un recurso (planeta en este caso)
     // - Pregunta sobre algún recurso relacionado (persona que nació o fue crear ahí)
     // - Busca ese recurso y comprueba si está relacionado con el primero (si la persona buscada tiene como planeta el original)
+
     public static void whoBornIn1(SWClient sw){
     	// Obteniendo la cantidad de planetas
     	int max_planet = sw.getNumberOfResources("planets");
@@ -205,11 +228,13 @@ public class Main {
     		System.out.println("Fallaste :( " + fracaso[rand.nextInt(fracaso.length)]);
     	}
     }
-    
+
+	/*-------- WHO BORN IN 2 --------------------------------------------------------------------------*/
     // Similar a la previa pero en vez de solicitar que escriba se le ofrecen alternativa para ello:
     // - Se elige una al azar de las disponibles en el recurso, persona del planeta (la correcta)
     // - Se buscar aleatoriamente otras 3 que no estén relacionados con el recurso (las incorrectas)
     // - Se inserta la correcta de forma aleatoria
+
     public static void whoBornIn2(SWClient sw){
     	
     	// Obteniendo la cantidad de planetas y personas
@@ -285,5 +310,92 @@ public class Main {
     	} else {
     		System.out.println("Fallaste :( " + fracaso[rand.nextInt(fracaso.length)]);
     	}
-    }     
+    }
+
+	/*-------- MOST EXPENSIVE --------------------------------------------------------------------------*/
+	// Pregunta que obtiene dos naves y ve cuál es más cara (Similar a tallest pero con naves)
+
+	public static void mostExpensive (SWClient sw){
+
+		// Obtenemos la cantidad de naves que podemos usar como máximo
+		int max_ships = sw.getNumberOfResources("starships");
+
+		// Si no hay naves, no podemos hacer la pregunta
+		if(max_ships == 0)
+		{
+			System.out.println("No se encontraron naves.");
+			return;
+		}
+
+		System.out.println("Generando nueva pregunta...");
+
+		// Almacenamos las naves usadas y las que vamos a usar
+		List<Integer> used = new ArrayList<Integer>();
+		List<SpaceShip> ships = new ArrayList<SpaceShip>();
+
+		int contador = 0;
+
+		// Buscamos dos naves que tengan coste definido
+		while(contador < 2)
+		{
+			Integer p = getRandomResource(max_ships, used);									// Obtenemos un ID aleatorio
+			SpaceShip ship = sw.getStarShip(sw.generateEndpoint("starships", p));	// Obtenemos la nave con ese ID
+			used.add(p);																	// Añadimos el ID de la nave a los usados
+
+			// Si hemos podido obtener la nave, comprobamos que tenga coste definido
+			if (ship != null)
+			{
+				try
+				{
+					Double test = Double.parseDouble(ship.cost_in_credits);	// Comprobamos que el precio es un número válido
+					ships.add(ship);										// La añadimos las naves a usar
+					contador++;												// Aumentamos el contador de personas
+				}
+				catch (Exception e)											// Si hubo fallo al hacer parser, no la usamos
+				{
+					continue;
+				}
+			}
+		}	// Salimos del while
+
+		/*
+		En este caso, no he añadido un mensaje de error en caso de que no se haya podido
+		obtener ninguna nave, ya que faltan naves en la API y es muy probable que no
+		se pueda obtener una nave válida.
+		 */
+
+		// Escribiendo la pregunta y leyendo la opción
+		Integer n = null;
+		do{
+			System.out.println("¿Qué nave es más cara? [0] "+ ships.get(0).name + " o [1] " + ships.get(1).name);
+
+			// Intentamos leer la respuesta
+			try
+			{
+				n = Integer.parseInt(sc.nextLine());
+			}
+			// Si hubo fallo, asignamos un valor inválido
+			catch(NumberFormatException ex)
+			{
+				n = -1;
+			}
+		}
+		while(n != 0 && n != 1);	// Preguntamos hasta tener una respuesta válida (0 o 1)
+
+		// Mostrando la información de los personajes elegidos
+		for(SpaceShip p: ships){
+			System.out.println(p.name + " cuesta " + p.cost_in_credits + " créditos");
+		}
+
+		// Si el que se eligió es más alto que el otro, se muestra un mensaje de acierto
+		if(Double.parseDouble(ships.get(n).cost_in_credits) >= Double.parseDouble(ships.get((n+1)%2).cost_in_credits))
+		{
+			System.out.println("Enhorabuena!!! "+ acierto[rand.nextInt(acierto.length)]);
+		}
+		// Si no, se muestra un mensaje de fracaso
+		else
+		{
+			System.out.println("Fallaste :( " + fracaso[rand.nextInt(fracaso.length)]);
+		}
+	}
 }
