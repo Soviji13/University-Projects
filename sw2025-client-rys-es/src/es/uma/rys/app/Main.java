@@ -51,21 +51,27 @@ public class Main {
 
         do{
         	tallest(sw);
-        	//whoBornIn1(sw);
-        	//whoBornIn2(sw);
+        	whoBornIn1(sw);
+        	whoBornIn2(sw);
 	       	System.out.println("Desea otra ronda (s/n)?");
 	       	respuesta = sc.nextLine();
 	    }while(respuesta.equals("s"));
         sc.close();
         
     }
-    
-    // Genera un número entre 0 y max-1 que no haya sido usado previamente (los usados vienen en l)
-    public static Integer getRandomResource(int max, List<Integer> l){
-    	if(max == l.size()) return null;
 
-    	Integer p = rand.nextInt(max);
-    	while(l.contains(p)){
+	// Sirve para obtener recursos aleatorios sin repetir de algo en específico (personajes, planetas, etc.)
+    public static Integer getRandomResource(int max, List<Integer> l)
+	{
+		// En l se almacenan los recursos que ya se han usado
+		// En max se indica el número máximo de recursos que se pueden usar (los que hemos podido obtener)
+
+    	if(max == l.size()) return null;	// Si ya se han usado todos, no hay más que buscar
+
+    	Integer p = rand.nextInt(max);		// Generamos un número aleatorio entre 0 y max-1
+
+    	while(l.contains(p))				// Si ya se ha usado, buscamos otro
+		{
     		p = (p+1)%max;
     	}
     	return p;
@@ -73,55 +79,82 @@ public class Main {
     
     // Pregunta que obtiene dos recursos iguales (personajes en este caso) y los compara
     public static void tallest(SWClient sw){
-    	// Obteniendo la cantidad de gente almacenada
+
+		// Obtenemos la cantidad de personas que podemos usar como máximo
     	int max_people = sw.getNumberOfResources("people");
-    	if(max_people == 0){
+
+		// Si no hay personas, no podemos hacer la pregunta
+    	if(max_people == 0)
+		{
     		System.out.println("No se encontraron personas.");
     		return;
     	}
     	
     	System.out.println("Generando nueva pregunta...");
-    	// Cogiendo dos personas al azar sin repetir
+
+    	// Almacenamos las personas usadas y las que vamos a usar
         List<Integer> used = new ArrayList<Integer>();
     	List<Person> people = new ArrayList<Person>();
+
     	int contador = 0;
+
+		// Buscamos dos personas que tengan altura definida
     	while(contador < 2){
-    		Integer p = getRandomResource(max_people, used);
-    		Person person = sw.getPerson(sw.generateEndpoint("people", p));
+    		Integer p = getRandomResource(max_people, used);							// Obtenemos un ID aleatorio
+    		Person person = sw.getPerson(sw.generateEndpoint("people", p));	// Obtenemos la persona con ese ID
+
+			// Si no se ha podido obtener, mostramos un mensaje de error
     		if(person == null){
     			System.out.println("Hubo un error al encontrar el recurso " + p);
-    		} else {
-    			try {
-    				Double test = Double.parseDouble(person.height);
-					people.add(person);
-					contador++;
-				}catch (Exception e){
+    		}
+			else
+			{
+    			try
+				{
+    				Double test = Double.parseDouble(person.height);	// Comprobamos que la altura es un número válido
+					people.add(person);									// La añadimos las personas a usar
+					contador++;											// Aumentamos el contador de personas
+				}
+				catch (Exception e)										// Si hubo fallo al hacer parser, no la usamos
+				{
     				continue;
 				}
     		}
     		used.add(p);
-    	}
-    	
+    	}	// Salimos del while
+
+
     	// Escribiendo la pregunta y leyendo la opción
     	Integer n = null;
     	do{
     		System.out.println("¿Quién es más alto? [0] "+ people.get(0).name + " o [1] " + people.get(1).name);
-    		try{
+
+			// Intentamos leer la respuesta
+    		try
+			{
     			n = Integer.parseInt(sc.nextLine());
-    		}catch(NumberFormatException ex){
+    		}
+			// Si hubo fallo, asignamos un valor inválido
+			catch(NumberFormatException ex)
+			{
     			n = -1;
     		}
-    	}while(n != 0 && n != 1);
+    	}
+		while(n != 0 && n != 1);	// Preguntamos hasta tener una respuesta válida (0 o 1)
     	
     	// Mostrando la información de los personajes elegidos
     	for(Person p: people){
     		System.out.println(p.name + " mide " + p.height);
     	}
     	
-    	// Resultado
-    	if(Double.parseDouble(people.get(n).height) >= Double.parseDouble(people.get((n+1)%2).height)){
+    	// Si el que se eligió es más alto que el otro, se muestra un mensaje de acierto
+    	if(Double.parseDouble(people.get(n).height) >= Double.parseDouble(people.get((n+1)%2).height))
+		{
     		System.out.println("Enhorabuena!!! "+ acierto[rand.nextInt(acierto.length)]);
-    	} else {
+    	}
+		// Si no, se muestra un mensaje de fracaso
+		else
+		{
     		System.out.println("Fallaste :( " + fracaso[rand.nextInt(fracaso.length)]);
     	}
     }
