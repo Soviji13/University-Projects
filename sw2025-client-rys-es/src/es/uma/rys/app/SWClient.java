@@ -162,6 +162,23 @@ public class SWClient
                 p.homeplanet = null; // Si no tiene homeworld, asignamos null
             }
 
+            /* TODO: Para la pregunta de las naves espaciales (starships), obtenemos los datos de las naves
+                correspondientes a la persona y lo almacenamos en el atributo spaceships */
+
+            if (p.starships.length > 0 && p.starships.length > 0)       // Si la persona tiene naves espaciales
+            {
+                SpaceShip[] ships = new SpaceShip[p.starships.length]; // Creamos un array de naves espaciales
+
+                for (int i = 0; i < p.starships.length; i++)
+                {
+                    ships[i] = getStarShip(p.starships[i]);             // Obtenemos cada nave espacial
+                }
+                p.spaceships = ships;                                   // Lo asignamos al atributo spaceships
+            }
+            else
+            {
+                p.spaceships = null;
+            }
         }
         catch (Exception e)
         {

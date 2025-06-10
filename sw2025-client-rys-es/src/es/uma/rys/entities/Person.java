@@ -1,6 +1,6 @@
 package es.uma.rys.entities;
 
-// Class obtained when querying for a character's information
+// Clase obtenida al consultar la información de un personaje
 
 public class Person {
 	public String name;
@@ -17,9 +17,10 @@ public class Person {
 	public String[] starships;
 	public String[] vehicles;
 
-	// All the previous attributes are obtained directly from the object returned by the query
-	// The following attributes must be filled if necessary by querying the URLs returned in the query
-	// in the respective previous fields.
+	// Todos los atributos anteriores se obtienen directamente del objeto devuelto por la consulta
+	// Los siguientes atributos deben rellenarse, si es necesario, consultando las URLs devueltas
+	// en los campos anteriores
+
 	public World homeplanet = null;
 	public Movie[] movies = null;
 	public Specie[] speciesDetails = null;
