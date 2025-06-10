@@ -10,7 +10,8 @@ This is a university project aimed at creating and testing HTTPS requests to the
 - **SWClient.java** (required): Located in `httpTestStarWars/src/es/uma/rys/app/SWClient` — handles HTTPS requests and syncs data with Main.  
 [📥 Download `SWClient.java` from here](https://raw.githubusercontent.com/Soviji13/University-Projects/refs/heads/main/httpTestStarWars/src/es/uma/rys/app/SWClient.java)
 
-> ⚠️ Make sure to **download both `Main.java` and `SWClient.java`** from the correct path inside the `src` folder.
+> ⚠️ Make sure to **download both `Main.java` and `SWClient.java`** from the correct path inside the `src` folder.  
+> 🗂️ To download the .java files, please right-click the link and choose "Save Link As..." (or your browser’s equivalent) because clicking the link directly will open the file as plain text in your browser instead of downloading it automatically.
 
 ---
 
