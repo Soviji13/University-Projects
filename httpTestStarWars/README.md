@@ -4,10 +4,10 @@ This is a university project aimed at creating and testing HTTPS requests to the
 
 ## 🧠 Project Structure
 
-- **Main.java** (required): Located in `httpTestStarWars/src/es/uma/rys/app/Main` — runs the test and lets you add questions.
+- **Main.java** (required): Located in `httpTestStarWars/src/es/uma/rys/app/Main` — runs the test and lets you add questions.  
 [📥 Download `Main.java` from here](https://raw.githubusercontent.com/Soviji13/University-Projects/refs/heads/main/httpTestStarWars/src/es/uma/rys/app/Main.java)
 
-- **SWClient.java** (required): Located in `httpTestStarWars/src/es/uma/rys/app/SWClient` — handles HTTPS requests and syncs data with Main.
+- **SWClient.java** (required): Located in `httpTestStarWars/src/es/uma/rys/app/SWClient` — handles HTTPS requests and syncs data with Main.  
 [📥 Download `SWClient.java` from here](https://raw.githubusercontent.com/Soviji13/University-Projects/refs/heads/main/httpTestStarWars/src/es/uma/rys/app/SWClient.java)
 
 > ⚠️ Make sure to **download both `Main.java` and `SWClient.java`** from the correct path inside the `src` folder.
