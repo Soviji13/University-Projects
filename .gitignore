@@ -15,3 +15,14 @@
 # Archivos innecesarios
 Shell_SO/hup.txt
 Shell_SO/Redirecciones/
+
+# Ignorar carpetas y archivos innecesarios de httpTestStarWars
+httpTestStarWars/.idea/
+httpTestStarWars/bin/
+httpTestStarWars/lib/
+httpTestStarWars/out/
+httpTestStarWars/.classpath
+httpTestStarWars/.project
+httpTestStarWars/*.iml
+httpTestStarWars/jSSKeyLog.jar
+httpTestStarWars/sslkey-app.log
