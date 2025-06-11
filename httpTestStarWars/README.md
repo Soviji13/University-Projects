@@ -2,6 +2,9 @@
 
 This is a university project aimed at creating and testing HTTPS requests to the Star Wars API (https://swapi.py4e.com). The objective is to fetch and work with data from the API (characters, starships, etc.) and run basic question-based tests on the received resources.
 
+
+---
+
 ## 🧠 Project Structure
 
 - **Main.java** (required): Located in `httpTestStarWars/src/es/uma/rys/app/Main` — runs the test and lets you add questions.   
