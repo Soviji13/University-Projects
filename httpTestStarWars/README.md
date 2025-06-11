@@ -5,14 +5,18 @@ This is a university project aimed at creating and testing HTTPS requests to the
 
 ---
 
-## 🧠 Project Structure
+## 🧠 Project Structure - Downloadable Files
 
 - **Main.java** (required): Located in `httpTestStarWars/src/es/uma/rys/app/Main` — runs the test and lets you add questions.   
 📥 Download [`Main.java` from here](https://raw.githubusercontent.com/Soviji13/University-Projects/refs/heads/main/httpTestStarWars/src/es/uma/rys/app/Main.java)  
 
 
 - **SWClient.java** (required): Located in `httpTestStarWars/src/es/uma/rys/app/SWClient` — handles HTTPS requests and syncs data with Main.  
-  📥 Download [`SWClient.java` from here](https://raw.githubusercontent.com/Soviji13/University-Projects/refs/heads/main/httpTestStarWars/src/es/uma/rys/app/SWClient.java)
+  📥 Download [`SWClient.java` from here](https://raw.githubusercontent.com/Soviji13/University-Projects/refs/heads/main/httpTestStarWars/src/es/uma/rys/app/SWClient.java)  
+  
+
+- **extract-tls-secrets-4.0.0.jar** (optional): Located in `httpTestStarWars/lib` — a Java agent for extracting TLS secrets, useful for Wireshark analysis.  
+  📥 Download [`extract-tls-secrets-4.0.0.jar` from here](https://raw.githubusercontent.com/Soviji13/University-Projects/refs/heads/main/httpTestStarWars/lib/extract-tls-secrets-4.0.0.jar)
 
 > ⚠️ To download the .java files, please right-click the link and choose "Save Link As..." (or your browser’s equivalent) because clicking the link directly will open the file as plain text in your browser instead of downloading it automatically.
 
