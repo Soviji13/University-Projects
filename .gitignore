@@ -19,7 +19,6 @@ Shell_SO/Redirecciones/
 # Ignorar carpetas y archivos innecesarios de httpTestStarWars
 httpTestStarWars/.idea/
 httpTestStarWars/bin/
-httpTestStarWars/lib/
 httpTestStarWars/out/
 httpTestStarWars/.classpath
 httpTestStarWars/.project
