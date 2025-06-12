@@ -9,7 +9,7 @@
 🔧 A work-in-progress shell developed for the Operating Systems course.  
 This project includes basic job control features and aims to simulate the behavior of common Unix shells.
 
-⚠️ This project is **most likely not getting updates** — it was made for a specific assignment.
+>⚠️ This project is **most likely not getting updates** — it was made for a specific assignment.
 
 ---
 
@@ -22,6 +22,6 @@ This project includes basic job control features and aims to simulate the behavi
 💡 This includes a TLS agent (`extract-tls-secrets-4.0.0.jar`) for optional HTTPS traffic analysis via Wireshark.
 
 
-⚠️ This project is **most likely not getting updates** — it was made for a specific assignment.
+>⚠️ This project is **most likely not getting updates** — it was made for a specific assignment.
 
 ---
