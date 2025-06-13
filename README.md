@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="https://www.uma.es/" target="_blank">
-    <img src="https://github.com/user-attachments/assets/6e59cbc4-ed1b-425b-8d63-4414810e0e8f" alt="UMA Logo" height="60"/>
+    <img src="https://github.com/user-attachments/assets/418fb9ff-42db-46f3-9ef4-877c3cc55a79" alt="UMA Logo" height="60"/>
   </a>
 </p>
 
