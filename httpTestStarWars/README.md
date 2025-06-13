@@ -28,12 +28,13 @@ This is a university project aimed at creating and testing HTTPS requests to the
 
 You have **two options**:
 
-### Option 1: With basics 🤠 (Recommended if you only want to run the test)
+### 🤠 Option 1: With basics (Recommended if you only want to run the test)
 
-**🗂️ Install the zip file [from here](https://github.com/Soviji13/University-Projects/raw/refs/heads/main/httpTestStarWars/basics.zip)**. Make sure to extract it to a folder and create a new Java project in your IDE (like IntelliJ IDEA or Eclipse).  
-You must run go to the `src`folder, then to `es/uma/rys/app` and run the `Main.java`
+**Install the zip file [from here 🗂️](https://github.com/Soviji13/University-Projects/raw/refs/heads/main/httpTestStarWars/basics.zip)**. Make sure to extract it to a folder and create a new Java project in your IDE (like IntelliJ IDEA or Eclipse).  
+You must run go to the `src`folder, then to `es/uma/rys/app` and run the `Main.java`  
 
-### Option 2: With `extract-tls-secrets-4.0.0` 🦈 (Wireshark Analysis)
+
+### 🦈 Option 2: With `extract-tls-secrets-4.0.0` (Wireshark Analysis)
 
 If you want to generate a key log file for analyzing HTTPS traffic in **Wireshark**, download `extract-tls-secrets-4.0.0.jar` and add the following to your **VM options**:
 ``` -javaagent:/<path-to-extract>/extract-tls-secrets-4.0.0.jar=sslkey-app.log ```  
