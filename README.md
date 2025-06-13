@@ -1,6 +1,32 @@
 # University Projects
 
-📌 This repository contains various academic projects developed throughout my Computer Engineering degree.
+📌 This repository contains various academic projects developed throughout my Computer Engineering degree.  
+
+
+<p align="center">
+  <a href="https://www.uma.es/" target="_blank">
+    <img src="https://www.uma.es/static/themes/uma2016/images/UMA_logo.png" alt="UMA Logo" height="60"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Soviji13/University-Projects">
+    <img src="https://img.shields.io/badge/Languages-Java%20%7C%20C-blueviolet" alt="Languages"/>
+  </a>
+  <a href="https://github.com/Soviji13/University-Projects">
+    <img src="https://img.shields.io/github/repo-size/Soviji13/University-Projects?color=green" alt="Repo size"/>
+  </a>
+</p>
+
+
+
+ 📘 These projects are developed for educational purposes as part of the Bachelor's Degree in Computer Engineering at the University of Málaga (UMA). 
+
+> **⚠️ It is not intended for commercial use and does not carry a distribution license.**
+
+---
+
+# 🔍 Project overview
 
 ---
 
