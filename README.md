@@ -5,9 +5,10 @@
 
 <p align="center">
   <a href="https://www.uma.es/" target="_blank">
-    <img src="https://www.uma.es/static/themes/uma2016/images/UMA_logo.png" alt="UMA Logo" height="60"/>
+    <img src=".github/assets/UMA_logo.png" alt="UMA Logo" height="60"/>
   </a>
 </p>
+
 
 <p align="center">
   <a href="https://github.com/Soviji13/University-Projects">
